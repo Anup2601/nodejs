@@ -20,6 +20,11 @@ app.get("/rolldice",(req,res)=>{
     res.send("low internet connection");
 });
 
+app.get("/ig/:username",(req,res)=>{
+    let {username}=req.params;
+    res.render("insta.ejs",{username});
+})
+
 app.listen(port,()=>{
     console.log(`listing to the port ${port} .`);
 });

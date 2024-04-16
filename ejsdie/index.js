@@ -21,9 +21,16 @@ app.get("/rolldice",(req,res)=>{
 });
 
 app.get("/ig/:username",(req,res)=>{
-    let follower=["anup","bob","mical","jorge"];
     let {username}=req.params;
-    res.render("insta.ejs",{username,follower});
+    let  instadata=require("./data.json");
+    let data=instadata[username];
+    if (data) {
+        res.render("insta.ejs",{data});
+    }else{
+        res.render("error.ejs",{username});
+    }
+    
+    // console.log(data);
 })
 
 app.listen(port,()=>{

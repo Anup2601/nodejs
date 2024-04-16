@@ -4,17 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>instagram</title>
+    <style>.lol img{
+        height: 150px;
+        width: 200px;
+        display: flex;
+        flex-direction: row;
+
+    } </style>
 </head>
 <body>
-    <h1>This page belongs to @<%= username %></h1>
+    <h1>This page belongs to @<%= data.name %></h1>
     <button>follower</button>
     <button>following</button>
     <button>message</button>
-    <ul>
-        <% for(user of follower) { %>
-            <li><%= user %></li>
-            <% } %>
-    </ul>
+    <p>followers :<%= data.followers  %> &nbsp;&nbsp;&nbsp;&nbsp;following :<%= data.following %></p>
+<hr>
+<div class="imag">
+    <% for(let post of data.posts) { %>
+        <div class="lol"><img src="<%= post.image %>" alt="some image"></div>
+        <p>likes :<%=post.likes  %> &nbsp;&nbsp;&nbsp;&nbsp;comments :<%=post.comments %></p>
+    <% } %>
+</div>
+    
+    
     
 </body>
 </html>

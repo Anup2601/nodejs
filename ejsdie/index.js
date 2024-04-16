@@ -14,6 +14,12 @@ app.get("/",(req,res)=>{
     
 });
 
+app.get("/rolldice",(req,res)=>{
+    let diceval=Math.floor(Math.random()*6)+1;
+    res.render("rolldice",{diceval: diceval});
+    res.send("low internet connection");
+});
+
 app.listen(port,()=>{
     console.log(`listing to the port ${port} .`);
 });

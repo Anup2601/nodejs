@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quary</title>
+    <link rel="stylesheet" href=" /style.css">
+</head>
+<body>
+    <h1>QUARY</h1>
+    <% for(let post of posts) { %>
+        <div class="post">
+            <p>podt id:<%= post.id %></p>
+            <h2 class="name">@<%= post.name %></h2>
+            <h3 class="content"><%= post.content %></h3>
+            <br><br>
+            <a href="http://localhost:8080/post/<%= post.id  %>">see in detail</a>
+        </div>
+    <% } %>
+
+    <br>
+    <br><br>
+    <a href="http://localhost:8080/post/new">creat new post</a>
+    <br><br>
+    <a href="http://localhost:8080/post/new">delet a post</a>
+</body>
+</html>

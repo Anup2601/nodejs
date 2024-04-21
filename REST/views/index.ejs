@@ -15,6 +15,10 @@
             <h3 class="content"><%= post.content %></h3>
             <br><br>
             <a href="http://localhost:8080/post/<%= post.id  %>">see in detail</a>
+            <a href="http://localhost:8080/post/<%= post.id %>/edit">   edit post</a><br><br>
+            <form method="post" action="/post/<%= post.id %>?_method=DELETE">
+                 <button>DELETE post</button>
+            </form>
         </div>
     <% } %>
 
@@ -22,6 +26,6 @@
     <br><br>
     <a href="http://localhost:8080/post/new">creat new post</a>
     <br><br>
-    <a href="http://localhost:8080/post/new">delet a post</a>
+     
 </body>
 </html>

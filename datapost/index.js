@@ -2,17 +2,17 @@ const express=require("express");//for import express
 const app=express();
 const { faker } = require('@faker-js/faker');//for import faker to make fack database
 const mysql=require("mysql2");//for import mysql
-let port =8080;//for making static port
 const path=require("path");
 app.set('view engine','ejs'); //to import ejs file
 app.engine('ejs', require('ejs').__express);
 app.set("views",path.join(__dirname,"/views"));
 // to import method override
 const methodOverride=require("method-override");
-const { ifError } = require("assert");
+// const { ifError } = require("assert");
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended:true}));
 //for listing of port
+let port =8080;//for making static port
 app.listen(port,()=>{
     console.log("App is listing to the port 8080");
 });

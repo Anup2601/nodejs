@@ -40,3 +40,32 @@ user.insertMany([
         age:48
     }
 ])
+
+//to find the data
+user.find().then((data)=>{
+    console.log(data);
+}).catch((error)=>{
+    console.log(error);
+})
+user.findById("663d25d01e22fb71fc16a905")
+.then((data)=>{
+    console.log(data);
+}).catch ((error)=>{
+    console.log(error);
+})
+
+//to update the database
+user.findByIdAndUpdate("663fbce025afe5e3c386965b",{new:true})
+.then((data)=>{
+    console.log(data);
+}).catch((error)=>{
+    console.log(error);
+});
+
+//for delete the data
+user.deleteMany({age:{$gt:40}},{new:true})
+.then((data)=>{
+    console.log(data);
+}).catch((error)=>{
+    console.log(error);
+})

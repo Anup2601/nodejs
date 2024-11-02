@@ -36,5 +36,5 @@ app.get("/ig/:username",(req,res)=>{
 })
 
 app.listen(port,()=>{
-    console.log(`listing to the port ${port} .`);
+    console.log(`listing to the port ${port} `);
 });

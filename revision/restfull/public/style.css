@@ -1,0 +1,41 @@
+.user{
+    font-style: italic;
+    font-size: 0.8em;
+    color: #ce0b0b;
+
+}
+.post{
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #545252;
+    border-radius: 100%;
+    background-color: #f9f9f9;
+}
+.h1{
+    font-size: 1.5em;
+    color: #0829be;
+
+}
+*{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+button{
+    background-color: #d7260b;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}

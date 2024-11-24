@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>show</title>
+</head>
+<body>
+    <h1>Show post in detail</h1>
+    <p>Post id :<%= post.id %></p>
+    <div class="post">
+        <h2 class="user">@<%= post.username %></h2>
+        <h3 class="content"><%= post.content %></h3>
+        <button><a href="http://localhost:8080/post/<%= post.id %>/edit">Edit</a></button>
+    </div>
+</body>
+</html>

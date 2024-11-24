@@ -1,0 +1,9 @@
+SELECT * FROM student;
+-- show tables;
+SHOW TABLES;
+CREATE TABLE teacher (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL
+);

@@ -1,15 +1,30 @@
+const {express}=require('express');
+const app=express;
 const {faker}=require('@faker-js/faker');
 const mysql=require('mysql2');
 
 const connection=mysql.createConnection({
     host:"localhost",
     user:"root",
-    database:"limcee",
-    password:"Anup"
-})
-
+    database:"anup",
+    password:"Anup#7070"
+});
+let getuser=()=>{
+    return[
+        faker.string.uuid(),
+        faker.internet.username(),
+        faker.internet.email(),
+        faker.internet.password(),
+        faker.image.avatar(),
+    ]
+}
+let q="insert into school(userId,username,email,password,avatar)values?";
+let  data=[];
+for(let i=0;i<100;i++){
+    data.push(getuser());
+}
 try {
-    connection.query("SHOW TABLE",(error,result)=>{
+    connection.query(q,[data],(error,result)=>{
         if(error)throw error;
         console.log(result);
     })
@@ -17,17 +32,8 @@ try {
     console.log(error);
 }
 
-let getuser=()=>{
-    return{
-        userId:faker.string.uuid(),
-        user:faker.internet.username(),
-        email:faker.internet.email(),
-        password:faker.internet.password(),
-        avatar: faker.image.avatar(),
-        password: faker.internet.password(),
-        birthdate: faker.date.birthdate(),
-        registeredAt: faker.date.past(),
-    }
-}
-console.log(getuser());
+app.listion()
+
+// console.log(getuser());
+connection.end();
  

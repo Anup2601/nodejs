@@ -12,6 +12,13 @@
             color: aqua;
             background-color: black;
         }
+        button{
+            padding: 5px;
+            margin-left: 30px;
+            margin-right: 30px;
+            color: aqua;
+            background-color: black;
+        }
     </style>
 </head>
 <body>
@@ -22,7 +29,9 @@
             <th>username</th>
             <th>Email</th>
             <th>Avtar</th>
-            <!-- <th>Oprection</th> -->
+            <th><form action="/user/new" method="get">
+                <button>New</button>
+            </form></th>
         </tr>
         <% for( users of data) { %>
          <tr>
@@ -34,14 +43,10 @@
                 <form action="/user/<%= users.userId %>/edit" method="get">
                     <button>Edit</button>
                 </form>
-            </td>
+                </td>
+            
             <td>
-                <form action="/user/new" method="get">
-                    <button>New</button>
-                </form>
-            </td>
-            <td>
-                <form action="/user/<%= users.userId %>/edit" method="get">
+                <form action="/user/<%= users.userId %>/delete" method="get">
                     <button>Delete</button>
                 </form>
             </td>

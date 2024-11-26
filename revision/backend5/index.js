@@ -26,15 +26,7 @@ let getuser=()=>{
         faker.image.avatar(),
     ]
 }
-// try {
-//     connection.query(q,[data],(error,result)=>{
-//         if(error)throw error;
-//         console.log(result);
-//     })
-// } catch (error) {
-//     console.log(error);
-// }
-
+//connect to database
 app.get("/",(req,res)=>{
     let q=`select count(*) from school`;
     try{
@@ -50,7 +42,7 @@ app.get("/",(req,res)=>{
         res.send("Some error occure in database");
     }
 })
-
+//home routre
 app.get("/user",(req,res)=>{
     let q=`select * from school`;
     try{
@@ -81,7 +73,24 @@ app.get("/user/:id/edit",(req,res)=>{
 })
 
 // new Router
-app.get("/user/new")
+app.get("/user/new",(req,res)=>{
+    res.render("new.ejs");
+})
+
+app.post("/user",(req,res)=>{
+    let {username,email,password,avatar}=req.body;
+    let userId=uuidv4();
+    let q=`insert into school(userId,username,email,password,avatar) values ('${userId}','${username}','${email}','${password}','${avatar}')`;
+    try{
+        connection.query(q,(err,result)=>{
+            if(err)throw err;
+            // console.log("add new user");
+            res.redirect("/user");
+        })
+    }catch (err){
+        res.send("Some error occure in database");
+    }
+})
 
 // UPDATE Router
 app.patch("/user/:id",(req,res)=>{
@@ -108,6 +117,46 @@ app.patch("/user/:id",(req,res)=>{
     }
 })
 
+//delete rout
+app.get("/user/:id/delete",(req,res)=>{
+    let {id}=req.params;
+    let q=`select * from school where userId='${id}'`;
+    try{
+        connection.query(q,(err,result)=>{
+            if(err)throw err;
+            let user=result[0];
+            res.render("delete.ejs",{user});
+    })
+    
+    }catch(err){
+        res.send("Some error occure in database");
+    }
+})
+
+app.delete("/user/:id/",(req,res)=>{
+    let {id}=req.params;
+    let {password}=req.body;
+    let q=`select * from school where userId='${id}'`;
+    try{
+        connection.query(q,(err,result)=>{
+            if(err)throw err;
+            let user=result[0];
+            if(user.password!=password){
+                res.send("Wrong password");
+            }else{
+                let q2=`delete from school where userId='${id}'`;
+                connection.query(q2,(err,result)=>{
+                    if(err)throw err;
+                    res.redirect("/user");
+                })
+            }
+        })
+    }catch(err){
+        res.send("some error occur in database");
+    }
+})
+
+// activate the port
 let port =8080;
 app.listen(port,()=>{
     console.log("app is listing to port 8080");

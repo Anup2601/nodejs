@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Snapchat</title>
+</head>
+<body>
+    <h1>All Chats</h1>
+    <div class="chat-container">
+        <%for(let chat of chats){%>
+            <div class="chat-bubble <%= chat.from === 'You' ? 'outgoing' : 'incoming' %>">
+                <p class="chat-info">From: <%= chat.from %></p>
+                <div><p class="chat-message"><%= chat.message %></p> </div>
+                <p class="chat-info">To <%= chat.to %></p>
+                <p><%= chat.createdAt.toString().split(" ")[4]%></p>
+                <p  ><%= chat.createdAt.toString().split(" ").splice(0,4).join(" ") %></p>
+                <form action="/chats/<%=chat._id%>/edit" method="get">
+                    <button>Edit</button>
+                </form>
+                <form action="/chats/<%= chat._id %>?_method=DELETE" method="post">
+                    <button>Delete</button>
+                </form>
+            </div>
+        <%}%>
+    </div>
+    <form action="/chats/new" method="get">
+        <button>New Chat</button>
+    </form>
+</body>
+</html>

@@ -4,6 +4,7 @@ const mongoose=require("mongoose");
 const chat =require("./models/chat.js");
 const path=require("path");
 const methodOverride=require("method-override");
+const ExpressError=require("./ExpressError.js");
 
 app.set("views",path.join(__dirname,"views"));
 app.set("view engine","ejs");
@@ -37,6 +38,17 @@ async function main(){
 //     console.log(error);
 // })
 
+function asyncWrap(fn){
+    return function (req,res,next){
+        fn(req,res,next).catch((err)=>next(err));
+    };
+}
+
+const handleValidationError=(err)=>{
+    console.log("Validation Error Occure");
+    return err;
+}
+
 app.get("/",(req,res)=>{
     res.send("Working");
 })
@@ -69,11 +81,14 @@ app.post("/chats",(req,res)=>{
     res.redirect("/chats");
 })
 
-app.get("/chats/:id/edit",async(req,res)=>{
+app.get("/chats/:id/edit",asyncWrap( async(req,res,next)=>{
     let {id}=req.params;
     let chats=await chat.findById(id);
+    if(!chats){
+        next(new ExpressError(500,"chat not found"));
+    }
     res.render("edit.ejs",{chats});
-})
+}))
 
 app.put("/chats/:id",async (req,res)=>{
     let {id}=req.params;
@@ -86,6 +101,15 @@ app.delete("/chats/:id",async(req,res)=>{
     let {id}=req.params;
     let deletechat=await chat.findByIdAndDelete(id);
     res.redirect("/chats");
+})
+
+app.use((err,req,res,next)=>{
+    let {status=500,message="Some Error Occure"}=err;
+    res.status (status).send(message);
+    if(err.name==="ValidationError"){
+        err=handleValidationError(err);
+    }
+    next(err);
 })
 
 app.listen(8080,()=>{

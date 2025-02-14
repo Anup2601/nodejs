@@ -1,10 +1,10 @@
 const mongoose=require("mongoose");
 
 const chatSchema=new mongoose.Schema({
-    from:String,
-    to:String,
-    message:String,
-    createdAt:Date
+    from:{type:String, required:true} ,
+    to:{type:String, required:true},
+    message:{type:String,required:true},
+    createdAt:{type:Date, required:true}
 })
 
 const chat=mongoose.model("chat",chatSchema);

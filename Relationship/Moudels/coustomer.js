@@ -10,6 +10,8 @@ async function main() {
     
 }
 
+
+
 const orderSchema = new Schema({
     item: String,
     price:Number
@@ -25,24 +27,39 @@ const consumerSchema=new Schema({
     ],
 })
 
+consumerSchema.post("findOneAndDelete", async(consumer)=>{
+    if(consumer.orders.length){
+        let result=await Order.deleteMany({_id:{$in:consumer.orders}})
+        console.log(result);
+    }
+})
+
 const Order=mongoose.model("Order",orderSchema);
 const Consumer=mongoose.model("Consumer",consumerSchema);
 
 const addConsumer=async()=>{
     let cos1=new Consumer({
-        name:"Anup Mishra",
+        name:"Mona Mishra",
     });
-    let order1=await Order.findOne({item:"Chips"});
-    let order2=await Order.findOne({item:"cholocate"});
+    let newOrder=new Order({
+        item: "Car",
+        price:1009999,
+    })
 
-    cos1.orders.push(order1);
-    cos1.orders.push(order2);
-
+    cos1.orders.push(newOrder);
+    await newOrder.save();
     let result=await cos1.save();
-    console.log(result);
+    // console.log(result);
 }
 
-addConsumer();
+// addConsumer();
+
+const delcos=async()=>{
+    let data=await Consumer.findByIdAndDelete('67b36006998d11ed9379c9c2');
+    console.log(data);
+}
+
+delcos();
 
 // const addOrder=async()=>{
 //     let result=await Order.insertMany([
